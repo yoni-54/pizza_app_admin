@@ -6,6 +6,7 @@ import 'package:pizza_app_admin/src/blocs/authentication_bloc/authentication_blo
 import '../modules/auth/blocs/sign_in_bloc/sign_in_bloc.dart';
 import '../modules/auth/views/login_screen.dart';
 import '../modules/base/views/base_screen.dart';
+import '../modules/create_pizza/views/create_pizza_screen.dart';
 import '../modules/home/views/home_screen.dart';
 import '../modules/splash/views/splash_screen.dart';
 
@@ -28,7 +29,11 @@ GoRouter router(AuthenticationBloc authBloc) {
           if (state.fullPath == '/login' || state.fullPath == '/') {
             return child;
           } else {
-            return BaseScreen(child);
+            return BlocProvider<SignInBloc>(
+              create: (context) =>
+                  SignInBloc(context.read<AuthenticationBloc>().userRepository),
+              child: BaseScreen(child),
+            );
           }
         },
         routes: [
@@ -52,11 +57,12 @@ GoRouter router(AuthenticationBloc authBloc) {
             ),
           ),
           GoRoute(
-            path: '/',
-            builder: (context, state) => BlocProvider<AuthenticationBloc>.value(
-              value: BlocProvider.of<AuthenticationBloc>(context),
-              child: HomeScreen(),
-            ),
+            path: '/home',
+            builder: (context, state) => const HomeScreen(),
+          ),
+          GoRoute(
+            path: '/create',
+            builder: (context, state) => const CreatePizzaScreen(),
           ),
         ],
       ),
