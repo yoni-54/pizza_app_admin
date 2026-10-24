@@ -80,9 +80,7 @@ class _BaseScreenState extends State<BaseScreen> {
                         const Text(
                           'Logout',
                           style: TextStyle(
-                            //fontWeight: FontWeight.w600,
-                            color: Colors.grey,
-                            //fontSize: 20,
+                            
                           ),
                         ),
                         SizedBox(width: 5),
