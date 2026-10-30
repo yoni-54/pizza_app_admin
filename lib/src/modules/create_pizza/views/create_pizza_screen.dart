@@ -1,8 +1,19 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CreatePizzaScreen extends StatdelessWidget {
+import '../../../components/my_text_field.dart';
+
+class CreatePizzaScreen extends StatefulWidget {
   const CreatePizzaScreen({super.key});
 
+  @override
+  State<CreatePizzaScreen> createState() => _CreatePizzaScreenState();
+}
+
+class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
+  final nameController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  String? _errorMsg;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,19 +21,22 @@ class CreatePizzaScreen extends StatdelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Create a New Pizza !',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             ),
+            const SizedBox(height: 20),
             Form(
+              key: _formKey,
               child: Column(
                 children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
+                    width: 400,
                     child: MyTextField(
-                      controller: emailController,
-                      hintText: 'Email',
+                      controller: nameController,
+                      hintText: 'Name',
                       obscureText: false,
                       keyboardType: TextInputType.emailAddress,
                       prefixIcon: const Icon(CupertinoIcons.mail_solid),
@@ -30,16 +44,106 @@ class CreatePizzaScreen extends StatdelessWidget {
                       validator: (val) {
                         if (val!.isEmpty) {
                           return 'Please fill in this field';
-                        } else if (!RegExp(
-                          r'^[\w-\.]+@([\w-]+.)+[\w-]{2,4}$',
-                        ).hasMatch(val)) {
-                          return 'Please enter a valid email';
                         }
                         return null;
                       },
                     ),
                   ),
                   const SizedBox(height: 10),
+                  SizedBox(
+                    width: 400,
+                    child: MyTextField(
+                      controller: nameController,
+                      hintText: 'Description',
+                      obscureText: false,
+                      keyboardType: TextInputType.emailAddress,
+                      prefixIcon: const Icon(CupertinoIcons.mail_solid),
+                      errorMsg: _errorMsg,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return 'Please fill in this field';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: 400,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: MyTextField(
+                            controller: nameController,
+                            hintText: 'Price',
+                            obscureText: false,
+                            keyboardType: TextInputType.emailAddress,
+                            prefixIcon: const Icon(CupertinoIcons.mail_solid),
+                            errorMsg: _errorMsg,
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return 'Please fill in this field';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: MyTextField(
+                            controller: nameController,
+                            hintText: 'Discount',
+                            suffixIcon: const Icon(CupertinoIcons.percent),
+                            obscureText: false,
+                            keyboardType: TextInputType.emailAddress,
+                            prefixIcon: const Icon(CupertinoIcons.mail_solid),
+                            errorMsg: _errorMsg,
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return 'Please fill in this field';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 400,
+                    child: MyTextField(
+                      controller: nameController,
+                      hintText: 'Price',
+                      obscureText: false,
+                      keyboardType: TextInputType.emailAddress,
+                      prefixIcon: const Icon(CupertinoIcons.mail_solid),
+                      errorMsg: _errorMsg,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return 'Please fill in this field';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: 400,
+                    child: MyTextField(
+                      controller: nameController,
+                      hintText: 'Discount',
+                      obscureText: false,
+                      keyboardType: TextInputType.emailAddress,
+                      prefixIcon: const Icon(CupertinoIcons.mail_solid),
+                      errorMsg: _errorMsg,
+                      validator: (val) {
+                        if (val!.isEmpty) {
+                          return 'Please fill in this field';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
