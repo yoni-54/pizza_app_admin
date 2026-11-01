@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../components/my_text_field.dart';
+import '../components/macro.dart';
 
 class CreatePizzaScreen extends StatefulWidget {
   const CreatePizzaScreen({super.key});
@@ -114,59 +116,85 @@ class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
                   Row(
                     children: [
                       const Text('Is Vege:'),
+                      const SizedBox(width: 10),
                       Checkbox(value: false, onChanged: (value) {}),
                     ],
                   ),
+                  const SizedBox(width: 10),
                   Row(
                     children: [
                       const Text('Is Spicy:'),
+                      const SizedBox(width: 10),
                       Row(
                         children: [
                           Container(
-                            width: 40,
-                            height: 40,
+                            width: 30,
+                            height: 30,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
+                              border: Border.all(width: 2),
                               color: Colors.green,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(width: 2),
+                              color: Colors.orange,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Container(
+                            width: 30,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(width: 2),
+                              color: Colors.red,
                             ),
                           ),
                         ],
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: 400,
-                    child: MyTextField(
-                      controller: nameController,
-                      hintText: 'Price',
-                      obscureText: false,
-                      keyboardType: TextInputType.emailAddress,
-                      prefixIcon: const Icon(CupertinoIcons.mail_solid),
-                      errorMsg: _errorMsg,
-                      validator: (val) {
-                        if (val!.isEmpty) {
-                          return 'Please fill in this field';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
+                  const SizedBox(height: 10),
+                  Text('Macros:'),
                   const SizedBox(height: 10),
                   SizedBox(
                     width: 400,
-                    child: MyTextField(
-                      controller: nameController,
-                      hintText: 'Discount',
-                      obscureText: false,
-                      keyboardType: TextInputType.emailAddress,
-                      prefixIcon: const Icon(CupertinoIcons.mail_solid),
-                      errorMsg: _errorMsg,
-                      validator: (val) {
-                        if (val!.isEmpty) {
-                          return 'Please fill in this field';
-                        }
-                        return null;
-                      },
+                    child: Row(
+                      children: [
+                        MyMacroWidget(
+                          title: "Calories",
+                          value: 12,
+                          icon: FontAwesomeIcons.fire,
+                          controller: calorieController,
+                        ),
+                        const SizedBox(width: 10),
+                        MyMacroWidget(
+                          title: "Protein",
+                          value: 12,
+                          icon: FontAwesomeIcons.dumbbell,
+                          controller: proteinController,
+                        ),
+                        const SizedBox(width: 10),
+                        MyMacroWidget(
+                          title: "Fat",
+                          value: 12,
+                          icon: FontAwesomeIcons.oilWell,
+                          controller: fatController,
+                        ),
+                        const SizedBox(width: 10),
+                        MyMacroWidget(
+                          title: "Carbs",
+                          value: 12,
+                          icon: FontAwesomeIcons.breadSlice,
+                          controller: carbsController,
+                        ),
+                      ],
                     ),
                   ),
                 ],
