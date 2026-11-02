@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pizza_repository/pizza_repository.dart';
 
 import '../../../components/my_text_field.dart';
 import '../components/macro.dart';
@@ -16,191 +17,231 @@ class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
   final nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String? _errorMsg;
+  late Pizza pizza;
+
+  @override
+  void initState() {
+    pizza = Pizza.empty;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Create a New Pizza !',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-            ),
-            const SizedBox(height: 20),
-            Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 400,
-                    child: MyTextField(
-                      controller: nameController,
-                      hintText: 'Name',
-                      obscureText: false,
-                      keyboardType: TextInputType.text,
-                      errorMsg: _errorMsg,
-                      validator: (val) {
-                        if (val!.isEmpty) {
-                          return 'Please fill in this field';
-                        }
-                        return null;
-                      },
-                    ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Create a New Pizza !',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+              ),
+              const SizedBox(height: 20),
+              InkWell(
+                borderRadius: BorderRadius.circular(20),
+                onTap: () {
+                  // Handle tap event
+                },
+                child: Ink(
+                  width: 400,
+                  height: 400,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
                   ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: 400,
-                    child: MyTextField(
-                      controller: nameController,
-                      hintText: 'Description',
-                      obscureText: false,
-                      keyboardType: TextInputType.text,
-                      errorMsg: _errorMsg,
-                      validator: (val) {
-                        if (val!.isEmpty) {
-                          return 'Please fill in this field';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: 400,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: MyTextField(
-                            controller: nameController,
-                            hintText: 'Price',
-                            obscureText: false,
-                            keyboardType: TextInputType.emailAddress,
-                            prefixIcon: const Icon(CupertinoIcons.mail_solid),
-                            errorMsg: _errorMsg,
-                            validator: (val) {
-                              if (val!.isEmpty) {
-                                return 'Please fill in this field';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: MyTextField(
-                            controller: nameController,
-                            hintText: 'Discount',
-                            suffixIcon: const Icon(
-                              CupertinoIcons.percent,
-                              color: Colors.grey,
-                            ),
-                            obscureText: false,
-                            keyboardType: TextInputType.emailAddress,
-                            errorMsg: _errorMsg,
-                            validator: (val) {
-                              if (val!.isEmpty) {
-                                return 'Please fill in this field';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  Row(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Is Vege:'),
-                      const SizedBox(width: 10),
-                      Checkbox(value: false, onChanged: (value) {}),
+                      Icon(
+                        CupertinoIcons.photo,
+                        size: 100,
+                        color: Colors.grey.shade200,
+                      ),
+                      const SizedBox(height: 10),
+                      const Text(
+                        "Add a Picture here...",
+                        style: TextStyle(color: Colors.grey),
+                      ),
                     ],
                   ),
-                  const SizedBox(width: 10),
-                  Row(
-                    children: [
-                      const Text('Is Spicy:'),
-                      const SizedBox(width: 10),
-                      Row(
+                ),
+              ),
+              const SizedBox(height: 20),
+              Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 400,
+                      child: MyTextField(
+                        controller: nameController,
+                        hintText: 'Name',
+                        obscureText: false,
+                        keyboardType: TextInputType.text,
+                        errorMsg: _errorMsg,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'Please fill in this field';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: 400,
+                      child: MyTextField(
+                        controller: nameController,
+                        hintText: 'Description',
+                        obscureText: false,
+                        keyboardType: TextInputType.text,
+                        errorMsg: _errorMsg,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return 'Please fill in this field';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: 400,
+                      child: Row(
                         children: [
-                          Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(width: 2),
-                              color: Colors.green,
+                          Expanded(
+                            child: MyTextField(
+                              controller: nameController,
+                              hintText: 'Price',
+                              obscureText: false,
+                              keyboardType: TextInputType.emailAddress,
+                              prefixIcon: const Icon(CupertinoIcons.mail_solid),
+                              errorMsg: _errorMsg,
+                              validator: (val) {
+                                if (val!.isEmpty) {
+                                  return 'Please fill in this field';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           const SizedBox(width: 10),
-                          Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(width: 2),
-                              color: Colors.orange,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Container(
-                            width: 30,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(width: 2),
-                              color: Colors.red,
+                          Expanded(
+                            child: MyTextField(
+                              controller: nameController,
+                              hintText: 'Discount',
+                              suffixIcon: const Icon(
+                                CupertinoIcons.percent,
+                                color: Colors.grey,
+                              ),
+                              obscureText: false,
+                              keyboardType: TextInputType.emailAddress,
+                              errorMsg: _errorMsg,
+                              validator: (val) {
+                                if (val!.isEmpty) {
+                                  return 'Please fill in this field';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  Text('Macros:'),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: 400,
-                    child: Row(
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
                       children: [
-                        MyMacroWidget(
-                          title: "Calories",
-                          value: 12,
-                          icon: FontAwesomeIcons.fire,
-                          controller: calorieController,
-                        ),
+                        const Text('Is Vege:'),
                         const SizedBox(width: 10),
-                        MyMacroWidget(
-                          title: "Protein",
-                          value: 12,
-                          icon: FontAwesomeIcons.dumbbell,
-                          controller: proteinController,
-                        ),
+                        Checkbox(value: false, onChanged: (value) {}),
+                      ],
+                    ),
+                    const SizedBox(width: 10),
+                    Row(
+                      children: [
+                        const Text('Is Spicy:'),
                         const SizedBox(width: 10),
-                        MyMacroWidget(
-                          title: "Fat",
-                          value: 12,
-                          icon: FontAwesomeIcons.oilWell,
-                          controller: fatController,
-                        ),
-                        const SizedBox(width: 10),
-                        MyMacroWidget(
-                          title: "Carbs",
-                          value: 12,
-                          icon: FontAwesomeIcons.breadSlice,
-                          controller: carbsController,
+                        Row(
+                          children: [
+                            Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(width: 2),
+                                color: Colors.green,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(width: 2),
+                                color: Colors.orange,
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Container(
+                              width: 30,
+                              height: 30,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(width: 2),
+                                color: Colors.red,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    Text('Macros:'),
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: 400,
+                      child: Row(
+                        children: [
+                          MyMacroWidget(
+                            title: "Calories",
+                            value: 12,
+                            icon: FontAwesomeIcons.fire,
+                            controller: calorieController,
+                          ),
+                          const SizedBox(width: 10),
+                          MyMacroWidget(
+                            title: "Protein",
+                            value: 12,
+                            icon: FontAwesomeIcons.dumbbell,
+                            controller: proteinController,
+                          ),
+                          const SizedBox(width: 10),
+                          MyMacroWidget(
+                            title: "Fat",
+                            value: 12,
+                            icon: FontAwesomeIcons.oilWell,
+                            controller: fatController,
+                          ),
+                          const SizedBox(width: 10),
+                          MyMacroWidget(
+                            title: "Carbs",
+                            value: 12,
+                            icon: FontAwesomeIcons.breadSlice,
+                            controller: carbsController,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
