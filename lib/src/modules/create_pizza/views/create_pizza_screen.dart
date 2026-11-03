@@ -15,7 +15,14 @@ class CreatePizzaScreen extends StatefulWidget {
 
 class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
   final nameController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final priceController = TextEditingController();
+  final discountController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  final caloriesController = TextEditingController();
+  final proteinController = TextEditingController();
+  final fatController = TextEditingController();
+  final carbsController = TextEditingController();
   String? _errorMsg;
   late Pizza pizza;
 
@@ -95,7 +102,7 @@ class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
                     SizedBox(
                       width: 400,
                       child: MyTextField(
-                        controller: nameController,
+                        controller: descriptionController,
                         hintText: 'Description',
                         obscureText: false,
                         keyboardType: TextInputType.text,
@@ -115,7 +122,7 @@ class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
                         children: [
                           Expanded(
                             child: MyTextField(
-                              controller: nameController,
+                              controller: priceController,
                               hintText: 'Price',
                               obscureText: false,
                               keyboardType: TextInputType.emailAddress,
@@ -132,7 +139,7 @@ class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
                           const SizedBox(width: 10),
                           Expanded(
                             child: MyTextField(
-                              controller: nameController,
+                              controller: discountController,
                               hintText: 'Discount',
                               suffixIcon: const Icon(
                                 CupertinoIcons.percent,
@@ -157,7 +164,14 @@ class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
                       children: [
                         const Text('Is Vege:'),
                         const SizedBox(width: 10),
-                        Checkbox(value: false, onChanged: (value) {}),
+                        Checkbox(
+                          value: pizza.isVeg,
+                          onChanged: (value) {
+                            setState(() {
+                              pizza.isVeg = value!;
+                            });
+                          },
+                        ),
                       ],
                     ),
                     const SizedBox(width: 10),
@@ -167,13 +181,37 @@ class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
                         const SizedBox(width: 10),
                         Row(
                           children: [
-                            Container(
-                              width: 30,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(width: 2),
-                                color: Colors.green,
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  pizza.spicy = 1;
+                                });
+                              },
+
+                              child: InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    pizza.spicy = 2;
+                                  });
+                                },
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      pizza.spicy = 3;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 30,
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: pizza.spicy == 1
+                                          ? Border.all(width: 2)
+                                          : null,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                             const SizedBox(width: 10),
@@ -182,7 +220,9 @@ class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
                               height: 30,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border: Border.all(width: 2),
+                                border: pizza.spicy == 2
+                                    ? Border.all(width: 2)
+                                    : null,
                                 color: Colors.orange,
                               ),
                             ),
@@ -192,7 +232,9 @@ class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
                               height: 30,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border: Border.all(width: 2),
+                                border: pizza.spicy == 3
+                                    ? Border.all(width: 2)
+                                    : null,
                                 color: Colors.red,
                               ),
                             ),
@@ -211,7 +253,7 @@ class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
                             title: "Calories",
                             value: 12,
                             icon: FontAwesomeIcons.fire,
-                            controller: calorieController,
+                            controller: caloriesController,
                           ),
                           const SizedBox(width: 10),
                           MyMacroWidget(

@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 import '../entities/entities.dart';
 import 'models.dart';
 
@@ -25,7 +27,7 @@ class Pizza {
   });
 
   static final empty = Pizza(
-    pizzaId: '',
+    pizzaId: const Uuid().v1(),
     picture: '',
     isVeg: false,
     spicy: 1,
