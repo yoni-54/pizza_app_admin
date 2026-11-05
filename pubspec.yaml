@@ -34,6 +34,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   font_awesome_flutter: ^10.6.0
 
+  image_picker: ^1.0.4
+
   #Navigaion
   go_router: ^10.1.2
   url_strategy: ^0.2.0
