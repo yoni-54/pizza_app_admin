@@ -1,9 +1,10 @@
 import 'dart:html' as html;
+import 'dart:typed_data';
 
 import 'models/models.dart';
 
 abstract class PizzaRepo {
   Future<List<Pizza>> getPizzas();
 
-  Future<String> sendImage(html.File file);
+  Future<String> sendImage(Uint8List file, String name);
 }

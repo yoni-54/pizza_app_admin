@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -21,10 +22,9 @@ class FirebasePizzaRepo implements PizzaRepo {
   }
 
   @override
-  Future<String> sendImage(html.File file) async {
+  Future<String> sendImage(Uint8List file, String name) async {
     try {
-      Reference firebaseStorageRef =
-          FirebaseStorage.instance.ref().child(file.name);
+      Reference firebaseStorageRef = FirebaseStorage.instance.ref().child(name);
 
       await firebaseStorageRef.putBlob(file);
       return await firebaseStorageRef.getDownloadURL();

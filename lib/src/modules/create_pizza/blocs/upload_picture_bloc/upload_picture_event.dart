@@ -8,7 +8,7 @@ sealed class UploadPictureEvent extends Equatable {
 }
 
 class UploadPicture extends UploadPictureEvent {
-  final html.File file;
+  final Uint8List file;
 
   const UploadPicture(this.file);
 
