@@ -9,9 +9,10 @@ sealed class UploadPictureEvent extends Equatable {
 
 class UploadPicture extends UploadPictureEvent {
   final Uint8List file;
+  final String name;
 
-  const UploadPicture(this.file);
+  const UploadPicture(this.file, this.name);
 
   @override
-  List<Object> get props => [file];
+  List<Object> get props => [file, name];
 }
