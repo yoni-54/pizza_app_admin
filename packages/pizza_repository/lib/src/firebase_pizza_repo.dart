@@ -33,4 +33,16 @@ class FirebasePizzaRepo implements PizzaRepo {
       rethrow;
     }
   }
+
+  @override
+  Future<void> CreatePizzas(Pizza pizza) async {
+    try {
+      return await pizzaCollection
+          .doc(pizza.pizzaId)
+          .set(pizza.toEntity().toDocument());
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
 }

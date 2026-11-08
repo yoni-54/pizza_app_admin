@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
+import 'package:pizza_app_admin/src/modules/create_pizza/blocs/create_pizza_bloc/create_pizza_bloc_bloc.dart';
 import 'package:pizza_app_admin/src/modules/create_pizza/blocs/upload_picture_bloc/upload_picture_bloc.dart';
 import 'package:pizza_repository/pizza_repository.dart';
 import '../../../components/my_text_field.dart';
@@ -40,15 +41,15 @@ class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CreatePizzaBloc, CreatePizzaState>(
+    return BlocListener<CreatePizzaBlocBloc, CreatePizzaBlocState>(
       listener: (context, state) {
-        if (state is CreatePizzaSuccess) {
+        if (state is CreatePizzaBlocSuccess) {
           setState(() {
             creationRequired = false;
             context.go('/');
           });
           context.go('/');
-        } else if (state is CreatePizzaLoading) {
+        } else if (state is CreatePizzaBlocLoading) {
           setState(() {
             creationRequired = true;
           });
@@ -367,7 +368,7 @@ class _CreatePizzaScreenState extends State<CreatePizzaScreen> {
                                   );
                                 });
                                 print(pizza.toString());
-                                context.read<CreatePizzaBloc>().add(
+                                context.read<CreatePizzaBlocBloc>().add(
                                   CreatePizza(pizza),
                                 );
                               }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pizza_app_admin/src/blocs/authentication_bloc/authentication_bloc.dart';
+import 'package:pizza_app_admin/src/modules/create_pizza/blocs/create_pizza_bloc/create_pizza_bloc_bloc.dart';
 import 'package:pizza_app_admin/src/modules/create_pizza/blocs/upload_picture_bloc/upload_picture_bloc.dart';
 import 'package:pizza_repository/pizza_repository.dart';
 
@@ -64,8 +65,15 @@ GoRouter router(AuthenticationBloc authBloc) {
           ),
           GoRoute(
             path: '/create',
-            builder: (context, state) => BlocProvider(
-              create: (context) => UploadPictureBloc(FirebasePizzaRepo()),
+            builder: (context, state) => MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => UploadPictureBloc(FirebasePizzaRepo()),
+                ),
+                BlocProvider(
+                  create: (context) => CreatePizzaBlocBloc(FirebasePizzaRepo()),
+                ),
+              ],
               child: const CreatePizzaScreen(),
             ),
           ),
