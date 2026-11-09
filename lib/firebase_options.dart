@@ -43,7 +43,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions webProd = FirebaseOptions(
-    apiKey: "AIzaSyDVc3wnnLW78xHW-IKhyhjkTWG4zeJZkZs",
+    apiKey: "",
     authDomain: "pizza-delivery-4a06f.firebaseapp.com",
     projectId: "pizza-delivery-4a06f",
     storageBucket: "pizza-delivery-4a06f.firebasestorage.app",
